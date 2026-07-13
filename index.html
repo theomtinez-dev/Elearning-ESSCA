@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rattrapage e-learning — ESSCA</title>
+<title>Rattrapage e-learning â€” ESSCA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -20,17 +20,14 @@
   body{background:var(--paper);color:var(--ink);font-family:'Archivo',system-ui,sans-serif;
     font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;padding:0 20px 80px}
   .wrap{max-width:900px;margin:0 auto}
-  .mono{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums}
-
   header{padding:44px 0 28px;border-bottom:1px solid var(--line)}
   .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
     font-weight:600;font-family:'IBM Plex Mono',monospace}
   h1{font-size:clamp(30px,5vw,44px);font-weight:700;letter-spacing:-.025em;line-height:1.05;margin:10px 0 6px}
   .sub{color:var(--muted);font-size:14px}
 
-  /* Hero: la dette horaire */
-  .board{display:grid;grid-template-columns:1fr;gap:0;background:var(--surface);
-    border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:28px 0}
+  .board{background:var(--surface);border:1px solid var(--line);border-radius:14px;
+    overflow:hidden;margin:28px 0}
   .verdict{padding:26px 26px 22px;border-bottom:1px solid var(--line-soft)}
   .verdict .big{font-family:'IBM Plex Mono',monospace;font-size:clamp(28px,4.4vw,38px);
     font-weight:600;letter-spacing:-.02em;line-height:1.1}
@@ -43,17 +40,35 @@
   .stat .v{font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:500;margin-top:4px}
   .chartbox{padding:18px 14px 8px}
 
-  /* Aujourd'hui */
   .today{background:var(--surface);border:1px solid var(--line);border-radius:14px;
     padding:20px 24px;margin-bottom:32px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
   .today .spine{width:4px;align-self:stretch;min-height:44px;border-radius:2px;background:var(--muted)}
-  .today .lbl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+  .lbl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
     font-family:'IBM Plex Mono',monospace;font-weight:600}
   .today .txt{font-size:17px;font-weight:500;margin-top:2px}
   .today .quota{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:600}
 
   h2.sec{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
-    font-family:'IBM Plex Mono',monospace;font-weight:600;margin:0 0 14px}
+    font-family:'IBM Plex Mono',monospace;font-weight:600;margin:0 0 14px;display:flex;
+    justify-content:space-between;align-items:baseline;gap:12px}
+  h2.sec span{text-transform:none;letter-spacing:0;font-weight:400;font-size:12px}
+
+  /* Planificateur */
+  .planner{background:var(--surface);border:1px solid var(--line);border-radius:14px;
+    padding:8px 0;margin-bottom:32px}
+  .slot{display:flex;align-items:center;gap:14px;padding:11px 20px;border-bottom:1px solid var(--line-soft)}
+  .slot:last-child{border-bottom:none}
+  .slot .chip{width:4px;height:30px;border-radius:2px;flex:none}
+  .slot .when{font-family:'IBM Plex Mono',monospace;font-size:12.5px;width:118px;flex:none;color:var(--muted)}
+  select{flex:1;min-width:0;font-family:'Archivo',sans-serif;font-size:14px;font-weight:500;
+    color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;
+    padding:7px 10px;cursor:pointer;appearance:none}
+  select:hover{border-color:var(--ink)}
+  select:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+  .slot .rate{font-family:'IBM Plex Mono',monospace;font-size:12.5px;width:86px;text-align:right;flex:none}
+  .rate.hot{color:var(--late);font-weight:600}
+  .slot.rest .when{color:var(--muted)}
+  .slot.rest .restlbl{flex:1;font-size:14px;color:var(--muted)}
 
   .course{background:var(--surface);border:1px solid var(--line);border-radius:14px;
     margin-bottom:12px;overflow:hidden}
@@ -89,290 +104,335 @@
     .stat:nth-child(2){border-right:none}
     .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--line-soft)}
     .today .quota{margin-left:0}
+    .slot{flex-wrap:wrap}
+    .slot .when{width:100px}
+    .slot .rate{width:auto;margin-left:auto}
+    select{flex:1 1 100%;order:3}
   }
   @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
 <div class="wrap">
 <header>
-  <div class="eyebrow">ESSCA Online Campus — PGE Fundamentals 2026</div>
+  <div class="eyebrow">ESSCA Online Campus â€” PGE Fundamentals 2026</div>
   <h1>Rattrapage e-learning</h1>
-  <div class="sub">6 cours · 173 h · deadline <strong>1<sup>er</sup> septembre 2026</strong></div>
+  <div class="sub">6 cours Â· 173 h Â· deadline <strong>1<sup>er</sup> septembre 2026</strong></div>
 </header>
 
 <div class="board">
   <div class="verdict">
-    <div class="big" id="verdict">—</div>
-    <div class="note" id="verdictNote">Coche tes blocs au fur et à mesure : l'écart avec le planning se recalcule tout seul.</div>
+    <div class="big" id="verdict">â€”</div>
+    <div class="note" id="verdictNote">Coche tes blocs au fur et Ã  mesure : l'Ã©cart avec le planning se recalcule tout seul.</div>
   </div>
   <div class="stats">
     <div class="stat"><div class="k">Fait</div><div class="v" id="sDone">0 h</div></div>
-    <div class="stat"><div class="k">Restant</div><div class="v" id="sLeft">173 h</div></div>
-    <div class="stat"><div class="k">Jours restants</div><div class="v" id="sDays">—</div></div>
-    <div class="stat"><div class="k">Rythme requis</div><div class="v" id="sPace">—</div></div>
+    <div class="stat"><div class="k">Restant</div><div class="v" id="sLeft">â€”</div></div>
+    <div class="stat"><div class="k">Jours restants</div><div class="v" id="sDays">â€”</div></div>
+    <div class="stat"><div class="k">Rythme requis</div><div class="v" id="sPace">â€”</div></div>
   </div>
-  <div class="chartbox"><svg id="chart" viewBox="0 0 860 240" width="100%" role="img" aria-label="Courbe des heures restantes : objectif et position réelle"></svg></div>
+  <div class="chartbox"><svg id="chart" viewBox="0 0 860 240" width="100%" role="img" aria-label="Heures restantes : courbe objectif et position rÃ©elle"></svg></div>
 </div>
 
 <div class="today">
   <div class="spine" id="tSpine"></div>
   <div>
     <div class="lbl">Au programme aujourd'hui</div>
-    <div class="txt" id="tCourse">—</div>
+    <div class="txt" id="tCourse">â€”</div>
   </div>
-  <div class="quota" id="tQuota">—</div>
+  <div class="quota" id="tQuota">â€”</div>
 </div>
+
+<h2 class="sec">Ordre des cours <span>Les crÃ©neaux sont fixes. Change le cours, tout se recalcule.</span></h2>
+<div class="planner" id="planner"></div>
 
 <h2 class="sec">Les 6 cours</h2>
 <div id="courses"></div>
 
 <footer>
-  <span>Progression enregistrée automatiquement.</span>
-  <button id="reset">Tout décocher</button>
+  <span>Progression et ordre enregistrÃ©s automatiquement.</span>
+  <span style="display:flex;gap:8px">
+    <button id="resetOrder">Ordre par dÃ©faut</button>
+    <button id="reset">Tout dÃ©cocher</button>
+  </span>
 </footer>
 </div>
 
 <script>
 const COURSES = [
-  {id:'mkt', name:'Fundamentals of Marketing', color:'var(--mkt)', win:'15 → 21 juil', items:[
+  {id:'mkt', name:'Fundamentals of Marketing', short:'Marketing', color:'var(--mkt)', items:[
     ['Entry Level Assessment Quiz',40],
-    ['Part 1 · Overview of Marketing',280],
-    ['Part 2 · Marketing Mix',400],
-    ['Part 3 · Consumer Behaviour',290],
-    ['Part 4 · Global Marketing',350],
-    ['Part 5 · Sustainable Marketing',390],
+    ['Part 1 Â· Overview of Marketing',280],
+    ['Part 2 Â· Marketing Mix',400],
+    ['Part 3 Â· Consumer Behaviour',290],
+    ['Part 4 Â· Global Marketing',350],
+    ['Part 5 Â· Sustainable Marketing',390],
     ['Block 1 Final Quiz',40]]},
-  {id:'law', name:'Fundamentals of Law & Economics', color:'var(--law)', win:'22 → 28 juil', items:[
+  {id:'law', name:'Fundamentals of Law & Economics', short:'Droit & Ã‰co', color:'var(--law)', items:[
     ['Entry Level Assessment Quiz',40],
-    ['Block 1 · Fundamentals of Law',715],
-    ['Block 2 · Microeconomics',605],
-    ['Block 3 · Macroeconomics',350],
+    ['Block 1 Â· Fundamentals of Law',715],
+    ['Block 2 Â· Microeconomics',605],
+    ['Block 3 Â· Macroeconomics',350],
     ['Final Block Quiz',40]]},
-  {id:'fin', name:'Accounting & Corporate Finance', color:'var(--fin)', win:'29 juil → 4 août', items:[
+  {id:'fin', name:'Accounting & Corporate Finance', short:'Compta & Finance', color:'var(--fin)', items:[
     ['Entry Level Assessment Quiz',40],
     ['What is Accounting?',285],
     ['Introduction to Financial Analysis',350],
     ['What is Cost Accounting?',310],
     ['Cost Management Essentials',260],
     ['Financial Analysis & Time Value of Money',225],
-    ['Capital budgeting · NPV, IRR, Pay Back',235],
+    ['Capital budgeting Â· NPV, IRR, Pay Back',235],
     ['Block 1 Final Quiz',40]]},
-  {id:'mgt', name:'Organisational Management & HRM', color:'var(--mgt)', win:'8 → 14 août', items:[
+  {id:'mgt', name:'Organisational Management & HRM', short:'Management & RH', color:'var(--mgt)', items:[
     ['Entry Level Assessment Quiz',40],
-    ['Topic 1 · Organisational management',165],
-    ['Topic 2 · Contingent approaches, culturalist school, CSR',165],
-    ['Topic 3 · Organization Behavior',355],
-    ['Topic 4 · Motivation, perception, decision-making',300],
-    ['Topic 5 · From HR to HRM',337],
-    ['Topic 6 · Contemporary HRM',442],
+    ['Topic 1 Â· Organisational management',165],
+    ['Topic 2 Â· Contingent approaches, culturalist school, CSR',165],
+    ['Topic 3 Â· Organization Behavior',355],
+    ['Topic 4 Â· Motivation, perception, decision-making',300],
+    ['Topic 5 Â· From HR to HRM',337],
+    ['Topic 6 Â· Contemporary HRM',442],
     ['Block 1 Final Quiz',40]]},
-  {id:'sta', name:'Data & Statistics (SPSS)', color:'var(--sta)', win:'15 → 21 août', items:[
+  {id:'sta', name:'Data & Statistics (SPSS)', short:'Statistiques', color:'var(--sta)', items:[
     ['Entry Level Assessment Quiz',40],
-    ['1 · Fundamental elements of statistics',135],
-    ['2 · Introduction to SPSS',360],
-    ['3 · Univariate statistics',200],
-    ['4 · Graphical methods for describing data',135],
-    ['5 · Relationship between two variables',120],
-    ['6 · Estimation with confidence intervals',240],
-    ['7 · Test of hypotheses — single sample',150],
-    ['8 · Inferences based on two samples',120],
-    ['9 · Introduction to linear regression',150],
-    ['10 · Multiple regression models',150],
+    ['1 Â· Fundamental elements of statistics',135],
+    ['2 Â· Introduction to SPSS',360],
+    ['3 Â· Univariate statistics',200],
+    ['4 Â· Graphical methods for describing data',135],
+    ['5 Â· Relationship between two variables',120],
+    ['6 Â· Estimation with confidence intervals',240],
+    ['7 Â· Test of hypotheses â€” single sample',150],
+    ['8 Â· Inferences based on two samples',120],
+    ['9 Â· Introduction to linear regression',150],
+    ['10 Â· Multiple regression models',150],
     ['Block 1-2 Final Quiz',40]]},
-  {id:'str', name:'Strategy · International Business · Entrepreneurship', color:'var(--str)', win:'22 → 27 août', items:[
+  {id:'str', name:'Strategy Â· International Business Â· Entrepreneurship', short:'Strat / IB / Entrep', color:'var(--str)', items:[
     ['Entry Level Assessment Quiz',40],
-    ['Topic 1 · Strategic analysis (PESTEL, 5 forces, VRIN, SWOT)',290],
-    ['Topic 2 · Strategic decisions',310],
-    ['Topic 3 · International strategies',210],
-    ['Topic 4 · Entry modes',300],
-    ['Topic 5 · Entrepreneurial processes',235],
+    ['Topic 1 Â· Strategic analysis (PESTEL, 5 forces, VRIN, SWOT)',290],
+    ['Topic 2 Â· Strategic decisions',310],
+    ['Topic 3 Â· International strategies',210],
+    ['Topic 4 Â· Entry modes',300],
+    ['Topic 5 Â· Entrepreneurial processes',235],
     ['Final Quiz',40]]}
 ];
 
-const PLAN = [
-  {id:'mkt', from:'2026-07-15', to:'2026-07-21'},
-  {id:'law', from:'2026-07-22', to:'2026-07-28'},
-  {id:'fin', from:'2026-07-29', to:'2026-08-04'},
-  {id:'off', from:'2026-08-05', to:'2026-08-07', label:'Pause'},
-  {id:'mgt', from:'2026-08-08', to:'2026-08-14'},
-  {id:'sta', from:'2026-08-15', to:'2026-08-21'},
-  {id:'str', from:'2026-08-22', to:'2026-08-27'},
-  {id:'buf', from:'2026-08-28', to:'2026-09-01', label:'Marge & quiz finaux'}
+// CrÃ©neaux figÃ©s. Seul le cours qui les occupe est modifiable.
+const SLOTS = [
+  {kind:'study', from:'2026-07-15', to:'2026-07-21'},
+  {kind:'study', from:'2026-07-22', to:'2026-07-28'},
+  {kind:'study', from:'2026-07-29', to:'2026-08-04'},
+  {kind:'rest',  from:'2026-08-05', to:'2026-08-07', label:'Pause'},
+  {kind:'study', from:'2026-08-08', to:'2026-08-14'},
+  {kind:'study', from:'2026-08-15', to:'2026-08-21'},
+  {kind:'study', from:'2026-08-22', to:'2026-08-27'},
+  {kind:'rest',  from:'2026-08-28', to:'2026-09-01', label:'Marge & quiz finaux'}
 ];
+const DEFAULT_ORDER = ['mkt','law','fin','mgt','sta','str'];
 
-const TOTAL = COURSES.reduce((s,c)=>s+c.items.reduce((a,i)=>a+i[1],0),0);
 const byId = Object.fromEntries(COURSES.map(c=>[c.id,c]));
+const totalOf = c => c.items.reduce((s,i)=>s+i[1],0);
+const TOTAL = COURSES.reduce((s,c)=>s+totalOf(c),0);
+
 const D = s => new Date(s+'T00:00:00');
-const dayKey = d => d.toISOString().slice(0,10);
+const key = d => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 const addDays = (d,n) => new Date(d.getTime()+n*864e5);
-
-// Journal : une entrée par jour, quota en minutes
-const SCHEDULE = [];
-PLAN.forEach(seg=>{
-  const a=D(seg.from), b=D(seg.to);
-  const n = Math.round((b-a)/864e5)+1;
-  const c = byId[seg.id];
-  const total = c ? c.items.reduce((s,i)=>s+i[1],0) : 0;
-  for(let k=0;k<n;k++){
-    SCHEDULE.push({date:addDays(a,k), id:seg.id, label:c?c.name:seg.label,
-      color:c?c.color:'var(--muted)', min: total/n});
-  }
-});
-let cum=0;
-SCHEDULE.forEach(d=>{ cum+=d.min; d.cumTarget=cum; });
-
+const nDays = s => Math.round((D(s.to)-D(s.from))/864e5)+1;
 const fmtH = m => { const h=Math.floor(Math.abs(m)/60), mm=Math.round(Math.abs(m)%60);
   return (m<0?'-':'')+h+' h'+(mm?' '+String(mm).padStart(2,'0'):''); };
+const fmtDay = d => d.toLocaleDateString('fr-FR',{day:'numeric',month:'short'}).replace('.','');
+const fmtRange = s => fmtDay(D(s.from))+' â†’ '+fmtDay(D(s.to));
 
-let state = {};
-function save(){
-  try{ localStorage.setItem('essca-elearning-v1', JSON.stringify(state)); }catch(e){} }
-function load(){
-  try{ const r=localStorage.getItem('essca-elearning-v1'); if(r) state=JSON.parse(r); }catch(e){} }
-
-function doneMin(){
-  let s=0;
-  COURSES.forEach(c=>c.items.forEach((it,i)=>{ if(state[c.id+':'+i]) s+=it[1]; }));
-  return s;
+/* ---------- stockage (marche dans Claude comme sur GitHub Pages) ---------- */
+let state = {}, order = [...DEFAULT_ORDER];
+const KEY='essca-elearning-v2';
+async function save(){
+  const p = JSON.stringify({state, order});
+  try{ if(window.storage){ await window.storage.set(KEY,p); return; } }catch(e){}
+  try{ localStorage.setItem(KEY,p); }catch(e){}
 }
+async function load(){
+  let raw=null;
+  try{ if(window.storage){ const r=await window.storage.get(KEY); raw = r && r.value; } }catch(e){}
+  if(!raw){ try{ raw=localStorage.getItem(KEY); }catch(e){} }
+  if(!raw) return;
+  try{
+    const p=JSON.parse(raw);
+    state = p.state || {};
+    if(Array.isArray(p.order) && p.order.length===6 && new Set(p.order).size===6) order=p.order;
+  }catch(e){}
+}
+
+/* ---------- planning ---------- */
+let SCHEDULE=[];
+function buildSchedule(){
+  SCHEDULE=[];
+  let si=0;
+  SLOTS.forEach(s=>{
+    const n=nDays(s), a=D(s.from);
+    const c = s.kind==='study' ? byId[order[si++]] : null;
+    const per = c ? totalOf(c)/n : 0;
+    for(let k=0;k<n;k++){
+      SCHEDULE.push({date:addDays(a,k), id:c?c.id:'rest', label:c?c.name:s.label,
+        color:c?c.color:'var(--muted)', min:per});
+    }
+  });
+  let cum=0;
+  SCHEDULE.forEach(d=>{ cum+=d.min; d.cumTarget=cum; });
+}
+const doneMin = () => COURSES.reduce((s,c)=>
+  s + c.items.reduce((a,it,i)=> a + (state[c.id+':'+i]?it[1]:0), 0), 0);
 function targetMin(now){
-  const k = dayKey(now);
-  let t=0;
-  for(const d of SCHEDULE){ if(dayKey(d.date) <= k) t=d.cumTarget; }
+  const k=key(now); let t=0;
+  for(const d of SCHEDULE){ if(key(d.date)<=k) t=d.cumTarget; }
   return t;
 }
+function windowOf(id){
+  const days = SCHEDULE.filter(d=>d.id===id);
+  if(!days.length) return '';
+  return fmtDay(days[0].date)+' â†’ '+fmtDay(days[days.length-1].date);
+}
 
+/* ---------- planificateur ---------- */
+function drawPlanner(){
+  let si=0;
+  document.getElementById('planner').innerHTML = SLOTS.map(s=>{
+    if(s.kind==='rest') return `<div class="slot rest">
+      <span class="chip" style="background:var(--line)"></span>
+      <span class="when">${fmtRange(s)}</span>
+      <span class="restlbl">${s.label}</span>
+      <span class="rate" style="color:var(--muted)">0 h/j</span></div>`;
+    const idx=si++, c=byId[order[idx]], n=nDays(s), per=totalOf(c)/n;
+    const hot = per>270 ? ' hot' : '';
+    return `<div class="slot">
+      <span class="chip" style="background:${c.color}"></span>
+      <span class="when">${fmtRange(s)}</span>
+      <select data-slot="${idx}" aria-label="Cours du ${fmtRange(s)}">
+        ${COURSES.map(o=>`<option value="${o.id}"${o.id===c.id?' selected':''}>${o.short} â€” ${Math.round(totalOf(o)/60)} h</option>`).join('')}
+      </select>
+      <span class="rate${hot}">${fmtH(per)}/j</span></div>`;
+  }).join('');
+
+  document.querySelectorAll('#planner select').forEach(sel=>{
+    sel.onchange = () => {
+      const slot = +sel.dataset.slot, picked = sel.value;
+      const other = order.indexOf(picked);           // le cours choisi occupe dÃ©jÃ  un crÃ©neau
+      [order[slot], order[other]] = [order[other], order[slot]];  // on Ã©change
+      buildSchedule(); drawPlanner(); render(); save();
+    };
+  });
+}
+
+/* ---------- rendu ---------- */
 function render(){
-  const now = new Date();
-  const done = doneMin(), left = TOTAL-done;
-  const target = targetMin(now);
-  const delta = done - target;
+  const now=new Date(), done=doneMin(), left=TOTAL-done;
+  const target=targetMin(now), delta=done-target;
+  const daysLeft=Math.max(0, Math.ceil((D('2026-09-01')-now)/864e5));
 
-  const end = D('2026-09-01');
-  const daysLeft = Math.max(0, Math.ceil((end-now)/864e5));
-
-  const v = document.getElementById('verdict');
-  const vn = document.getElementById('verdictNote');
+  const v=document.getElementById('verdict'), vn=document.getElementById('verdictNote');
   if(left===0){
-    v.textContent = 'Terminé.'; v.style.color='var(--ok)';
-    vn.textContent = 'Les 173 h sont bouclées. Tu peux fermer cet onglet.';
+    v.textContent='TerminÃ©.'; v.style.color='var(--ok)';
+    vn.textContent='Les 173 h sont bouclÃ©es. Tu peux fermer cet onglet.';
   } else if(target===0){
-    v.textContent = 'Départ le 15 juillet'; v.style.color='var(--ink)';
-    vn.textContent = 'Le compteur d\u2019écart démarre au premier jour du planning.';
-  } else if(Math.abs(delta) < 30){
-    v.textContent = 'Pile dans les temps'; v.style.color='var(--ink)';
-    vn.textContent = 'Écart au planning : moins de 30 minutes. Continue comme ça.';
-  } else if(delta > 0){
-    v.textContent = fmtH(delta)+' d\u2019avance'; v.style.color='var(--ok)';
-    vn.textContent = 'Tu as pris de la marge sur le planning. De quoi absorber un imprévu.';
+    v.textContent='DÃ©part le 15 juillet'; v.style.color='var(--ink)';
+    vn.textContent='Le compteur d\u2019Ã©cart dÃ©marre au premier jour du planning.';
+  } else if(Math.abs(delta)<30){
+    v.textContent='Pile dans les temps'; v.style.color='var(--ink)';
+    vn.textContent='Ã‰cart au planning : moins de 30 minutes.';
+  } else if(delta>0){
+    v.textContent=fmtH(delta)+' d\u2019avance'; v.style.color='var(--ok)';
+    vn.textContent='Tu as pris de la marge. De quoi absorber un imprÃ©vu.';
   } else {
-    v.textContent = fmtH(-delta)+' de retard'; v.style.color='var(--late)';
-    vn.textContent = 'Rattrapable : répartis ce retard sur les prochains jours plutôt qu\u2019en une session.';
+    v.textContent=fmtH(-delta)+' de retard'; v.style.color='var(--late)';
+    vn.textContent='Rattrapable : Ã©tale ce retard sur plusieurs jours plutÃ´t qu\u2019en une session.';
   }
 
-  document.getElementById('sDone').textContent = fmtH(done);
-  document.getElementById('sLeft').textContent = fmtH(left);
-  document.getElementById('sDays').textContent = daysLeft;
-  document.getElementById('sPace').textContent = daysLeft ? fmtH(left/daysLeft)+'/j' : '—';
+  document.getElementById('sDone').textContent=fmtH(done);
+  document.getElementById('sLeft').textContent=fmtH(left);
+  document.getElementById('sDays').textContent=daysLeft;
+  document.getElementById('sPace').textContent = daysLeft ? fmtH(left/daysLeft)+'/j' : 'â€”';
 
-  const todayEntry = SCHEDULE.find(d=>dayKey(d.date)===dayKey(now));
+  const te=SCHEDULE.find(d=>key(d.date)===key(now));
   const tc=document.getElementById('tCourse'), tq=document.getElementById('tQuota'), ts=document.getElementById('tSpine');
-  if(!todayEntry){
-    tc.textContent = now < D('2026-07-15') ? 'Le planning démarre le 15 juillet' : 'Hors planning';
-    tq.textContent = '—'; ts.style.background='var(--muted)';
-  } else if(todayEntry.id==='off' || todayEntry.id==='buf'){
-    tc.textContent = todayEntry.label; tq.textContent='0 h'; ts.style.background='var(--muted)';
+  if(!te){
+    tc.textContent = now<D('2026-07-15') ? 'Le planning dÃ©marre le 15 juillet' : 'Hors planning';
+    tq.textContent='â€”'; ts.style.background='var(--muted)';
+  } else if(te.id==='rest'){
+    tc.textContent=te.label; tq.textContent='0 h'; ts.style.background='var(--muted)';
   } else {
-    tc.textContent = todayEntry.label;
-    tq.textContent = fmtH(todayEntry.min);
-    ts.style.background = todayEntry.color;
+    tc.textContent=te.label; tq.textContent=fmtH(te.min); ts.style.background=te.color;
   }
 
   COURSES.forEach(c=>{
-    const tot = c.items.reduce((s,i)=>s+i[1],0);
-    const d = c.items.reduce((s,it,i)=> s + (state[c.id+':'+i]?it[1]:0), 0);
-    const pct = Math.round(d/tot*100);
-    document.querySelector('#pct-'+c.id).textContent = pct+'%';
-    document.querySelector('#bar-'+c.id).style.width = pct+'%';
+    const tot=totalOf(c);
+    const d=c.items.reduce((s,it,i)=> s+(state[c.id+':'+i]?it[1]:0), 0);
+    const pct=Math.round(d/tot*100);
+    document.getElementById('pct-'+c.id).textContent=pct+'%';
+    document.getElementById('bar-'+c.id).style.width=pct+'%';
+    document.getElementById('win-'+c.id).textContent=windowOf(c.id)+' Â· '+Math.round(tot/60)+' h';
   });
 
   drawChart(done);
 }
 
 function drawChart(done){
-  const W=860,H=240,L=52,R=16,T=16,B=30;
-  const days = SCHEDULE.length;
-  const x = i => L + i*(W-L-R)/(days-1);
-  const y = m => T + (1 - m/TOTAL)*(H-T-B);
+  const W=860,H=240,L=52,R=16,T=16,B=30, n=SCHEDULE.length;
+  const x=i=>L+i*(W-L-R)/(n-1), y=m=>T+(1-m/TOTAL)*(H-T-B);
 
-  let ideal='', ptsAreaTop='';
-  SCHEDULE.forEach((d,i)=>{ const rem=TOTAL-d.cumTarget; ideal += (i?'L':'M')+x(i).toFixed(1)+' '+y(rem).toFixed(1)+' '; });
-
-  // grille
   let g='';
   [0,.25,.5,.75,1].forEach(f=>{
     const yy=y(TOTAL*f);
-    g+=`<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="var(--line)" stroke-width="1"/>`;
-    g+=`<text x="${L-10}" y="${yy+4}" text-anchor="end" font-size="10" font-family="IBM Plex Mono,monospace" fill="var(--muted)">${Math.round(TOTAL*f/60)}h</text>`;
+    g+=`<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="var(--line)" stroke-width="1"/>
+        <text x="${L-10}" y="${yy+4}" text-anchor="end" font-size="10" font-family="IBM Plex Mono,monospace" fill="var(--muted)">${Math.round(TOTAL*f/60)}h</text>`;
   });
 
-  // bandes de cours
-  let bands='';
-  let start=0;
-  for(let i=1;i<=days;i++){
-    if(i===days || SCHEDULE[i].id!==SCHEDULE[start].id){
-      const seg=SCHEDULE[start];
-      if(seg.id!=='off' && seg.id!=='buf'){
-        bands+=`<rect x="${x(start)}" y="${H-B+4}" width="${x(i-1)-x(start)}" height="3" fill="${seg.color}" rx="1.5" opacity=".8"/>`;
-      }
-      start=i;
+  let ideal='';
+  SCHEDULE.forEach((d,i)=>{ ideal+=(i?'L':'M')+x(i).toFixed(1)+' '+y(TOTAL-d.cumTarget).toFixed(1)+' '; });
+
+  let bands='', s=0;
+  for(let i=1;i<=n;i++){
+    if(i===n || SCHEDULE[i].id!==SCHEDULE[s].id){
+      const seg=SCHEDULE[s];
+      if(seg.id!=='rest')
+        bands+=`<rect x="${x(s)}" y="${H-B+4}" width="${Math.max(2,x(i-1)-x(s))}" height="3" fill="${seg.color}" rx="1.5" opacity=".85"/>`;
+      s=i;
     }
   }
 
-  // repères de dates
   let ticks='';
   SCHEDULE.forEach((d,i)=>{
-    if(d.date.getDate()===1 || d.date.getDate()===15){
-      const lbl=d.date.toLocaleDateString('fr-FR',{day:'numeric',month:'short'});
-      ticks+=`<text x="${x(i)}" y="${H-8}" text-anchor="middle" font-size="10" font-family="IBM Plex Mono,monospace" fill="var(--muted)">${lbl}</text>`;
-    }
+    if(d.date.getDate()===1||d.date.getDate()===15)
+      ticks+=`<text x="${x(i)}" y="${H-8}" text-anchor="middle" font-size="10" font-family="IBM Plex Mono,monospace" fill="var(--muted)">${fmtDay(d.date)}</text>`;
   });
 
-  // position réelle
-  const now=new Date();
+  const idx=SCHEDULE.findIndex(d=>key(d.date)===key(new Date()));
   let marker='';
-  const idx = SCHEDULE.findIndex(d=>dayKey(d.date)===dayKey(now));
   if(idx>=0){
     const px=x(idx), py=y(TOTAL-done);
-    marker = `<line x1="${px}" y1="${T}" x2="${px}" y2="${H-B}" stroke="var(--ink)" stroke-width="1" stroke-dasharray="2 3" opacity=".35"/>
-      <circle cx="${px}" cy="${py}" r="5" fill="var(--accent)"/>
-      <circle cx="${px}" cy="${py}" r="9" fill="none" stroke="var(--accent)" stroke-width="1" opacity=".35"/>`;
+    marker=`<line x1="${px}" y1="${T}" x2="${px}" y2="${H-B}" stroke="var(--ink)" stroke-width="1" stroke-dasharray="2 3" opacity=".35"/>
+      <circle cx="${px}" cy="${py}" r="9" fill="none" stroke="var(--accent)" stroke-width="1" opacity=".35"/>
+      <circle cx="${px}" cy="${py}" r="5" fill="var(--accent)"/>`;
   }
 
-  document.getElementById('chart').innerHTML =
-    g + bands + ticks +
-    `<path d="${ideal}" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="4 4"/>` +
-    marker +
-    `<text x="${W-R}" y="${T+12}" text-anchor="end" font-size="10" font-family="IBM Plex Mono,monospace" fill="var(--muted)">— — objectif · ● toi</text>`;
+  document.getElementById('chart').innerHTML = g+bands+ticks+
+    `<path d="${ideal}" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="4 4"/>`+
+    marker+
+    `<text x="${W-R}" y="${T+12}" text-anchor="end" font-size="10" font-family="IBM Plex Mono,monospace" fill="var(--muted)">â€” â€” objectif Â· â— toi</text>`;
 }
 
-// Construction de la liste
+/* ---------- liste des cours ---------- */
 const wrap=document.getElementById('courses');
 COURSES.forEach(c=>{
-  const tot=c.items.reduce((s,i)=>s+i[1],0);
   const el=document.createElement('div');
   el.className='course';
   el.innerHTML=`
     <div class="chead">
       <span class="dot" style="background:${c.color}"></span>
       <span class="cname">${c.name}</span>
-      <span class="cwin">${c.win} · ${Math.round(tot/60)} h</span>
+      <span class="cwin" id="win-${c.id}"></span>
       <span class="cpct" id="pct-${c.id}">0%</span>
     </div>
     <div class="bar"><i id="bar-${c.id}" style="background:${c.color}"></i></div>
     <div class="items">
       ${c.items.map((it,i)=>`
-        <label class="item" style="color:${c.color}" data-key="${c.id}:${i}">
+        <label class="item" style="color:${c.color}">
           <input type="checkbox" data-key="${c.id}:${i}">
           <span class="iname" style="color:var(--ink)">${it[0]}</span>
           <span class="imin">${fmtH(it[1])}</span>
@@ -384,12 +444,10 @@ COURSES.forEach(c=>{
 
 wrap.addEventListener('change', e=>{
   if(e.target.type!=='checkbox') return;
-  const k=e.target.dataset.key;
-  state[k]=e.target.checked;
+  state[e.target.dataset.key]=e.target.checked;
   e.target.closest('.item').classList.toggle('done', e.target.checked);
   save(); render();
 });
-
 document.getElementById('reset').onclick=()=>{
   state={};
   document.querySelectorAll('#courses input').forEach(i=>{
@@ -397,12 +455,16 @@ document.getElementById('reset').onclick=()=>{
   });
   save(); render();
 };
+document.getElementById('resetOrder').onclick=()=>{
+  order=[...DEFAULT_ORDER];
+  buildSchedule(); drawPlanner(); render(); save();
+};
 
-(function(){
-  load();
+(async ()=>{
+  await load();
   document.querySelectorAll('#courses input').forEach(i=>{
     if(state[i.dataset.key]){ i.checked=true; i.closest('.item').classList.add('done'); }
   });
-  render();
+  buildSchedule(); drawPlanner(); render();
 })();
 </script>
